@@ -1,0 +1,24 @@
+{
+  "name": "swift_express_backend",
+  "version": "1.0.0",
+  "description": "NodeJS and express as backend, Swift as frontend.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/g277321/swift_express_backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/g277321/swift_express_backend/issues"
+  },
+  "homepage": "https://github.com/g277321/swift_express_backend#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.5.3",
+    "morgan": "^1.10.0"
+  }
+}
