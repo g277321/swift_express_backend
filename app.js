@@ -4,13 +4,15 @@ let bodyParser = require('body-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 
+const fs = require('fs');
+
 
 let iosDB = require('./models/iosDB');
 
 const port = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit:'50mb'}));
+app.use(bodyParser.urlencoded({extended: false, limit:'50mb'}));
 
 //connect mongodb database
 var setting = setting = {
@@ -30,13 +32,13 @@ app.get('/posts', (req, res) => {
     let all =     iosDB.find()
     console.log(all)
 
-    // iosDB.find().toArray(function(err, result){
-    //     if (err) {
-    //         res.json({msg:'error'})
-    //     }else{
-    //         res.json(result)
-    //     }
-    // })
+    iosDB.find().toArray(function(err, result){
+        if (err) {
+            res.json({msg:'error'})
+        }else{
+            res.json(result)
+        }
+    })
 })
 
 app.post('/createPost', (req, res) => {
@@ -96,6 +98,48 @@ app.post('/createPost', (req, res) => {
     //     });
     // }
 })
+
+
+app.post('/createBilling', (req, res) => {
+
+    let body = req.body
+
+    // console.log('HHHHHHHHHHHHHHHHHH')
+    // console.log(req.body)
+    // console.log('HHHHHHHHHHHHHHHHHH')
+
+        //check validation
+        // if (!title || !post) {
+        //     return res
+        //     .status(400)
+        //     .send({
+        //         error: true,
+        //         message: "Please provide title ane post"
+        //     });
+        // } else {
+            
+
+            let values = {
+                id: 5,
+                body: body
+            }
+
+            let data = body.image
+
+            console.log(body)
+            let base64Data = data.replace(/\s/g, "+");
+            let buffer = Buffer.from(base64Data, 'base64');
+            fs.writeFileSync('stack-abuse-logo-out.jpeg', buffer);
+
+console.log('Base64 image data converted to file: stack-abuse-logo-out.jpeg');
+        // }
+})
+
+
+
+
+
+
 
 // app.put('/updatePost', (req, res) => {
 //     let id = req.body.id;
